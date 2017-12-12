@@ -10,6 +10,7 @@ var Tetris = (function() {
  * Initialize the game.
  */
 function Tetris() {
+  
   var state,
     renderer,
     keyboard,

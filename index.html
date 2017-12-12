@@ -1,0 +1,19 @@
+<html>
+<head>
+  <script type = "text/javascript" src = "tetris.js"></script>
+  <script src="capture.js"></script>
+</head>
+<body onLoad = "Tetris.init('tetris_canvas');">
+  <canvas id = "tetris_canvas" width = "170" height = "300"></canvas>
+  <div id = "score"></div>
+  <div class="camera">
+    <video id="video">Video stream not available.</video>
+    <button id="startbutton">Take photo</button> 
+  </div>
+  <canvas id="canvas">
+  </canvas>
+  <div class="output">
+    <img id="photo" alt="The screen capture will appear in this box."> 
+  </div>
+</body>
+</html>

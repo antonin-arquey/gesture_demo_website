@@ -1,6 +1,9 @@
 # Built files
 build/
 
+#Models convertor
+python_utils/
+
 # Python cache
 __pycache__/
 

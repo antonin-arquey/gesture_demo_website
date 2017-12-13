@@ -34,7 +34,7 @@ export default class {
       };
     }
     // Prefer camera resolution nearest to 1280x720.
-    const constraints = { audio: true, video: { width, height } };
+    const constraints = { audio: false, video: { width, height } };
 
     navigator.mediaDevices.getUserMedia(constraints)
       .then((stream) => {

@@ -99,22 +99,12 @@ def generate_model_json(args):
 
   while marker < len(path):
     node_proto = graph.get_node(path[marker])
-    print(path[marker])
-    input()
-    print(node_proto.op, node_proto, get_shape(node_proto))
-    print(reader.get_tensor_by_name(path[marker] + ':0'))
-    input()
     if node_proto.op == 'Placeholder':
       shape = get_shape(node_proto)
       layers += [{'layer_type': 'input',
                   'out_depth': shape[0],
                   'out_sx': shape[1],
                   'out_sy': shape[2]}]
-    elif node_proto.op == 'Conv2D':
-      shape = get_shape(node_proto)
-      input(shape)
-
-      layers += [{'sx': shape[0]}]
     elif node_proto.op == 'MatMul':
       if marker < len(path) - 1 and graph.get_node(path[marker+1]).op == 'Add':
         layers += [build_affine_matrix(node_proto, graph.get_node(path[marker+1]),

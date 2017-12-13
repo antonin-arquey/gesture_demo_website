@@ -1,5 +1,10 @@
-import './js/webcam';
+import WebcamManager from './js/webcam';
 
-import { layers } from './json/model.json';
+const button = document.querySelector('#snap');
 
-console.log(layers);
+const webcamManager = new WebcamManager(480, 480);
+
+button.addEventListener('click', (ev) => {
+  webcamManager.takeSnapshot();
+  ev.preventDefault();
+});

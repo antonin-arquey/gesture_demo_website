@@ -66,6 +66,15 @@ const config = {
         }),
       },
       {
+        test: /\.vue$/,
+        loader: 'vue-loader',
+        options: {
+          scss: 'vue-style-loader!css-loader!sass-loader',
+          sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax',
+          extractCSS: !dev,
+        },
+      },
+      {
         test: /\.(woff2?|eot|ttf|otf|wav)(\?.*)?$/,
         loader: 'file-loader',
       },
@@ -112,6 +121,12 @@ const config = {
       alwaysWriteToDisk: true,
     }),
     new HtmlWebpackHarddiskPlugin(),
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      'window.jquery': 'jquery',
+      Popper: ['popper.js', 'default'],
+    }),
   ],
 };
 

@@ -1,7 +1,4 @@
-
-
 const video = document.querySelector('video');
-const image = document.querySelector('#photo');
 const canvas = document.querySelector('#canvas');
 
 export default class {
@@ -38,8 +35,6 @@ export default class {
 
     navigator.mediaDevices.getUserMedia(constraints)
       .then((stream) => {
-        console.log(stream);
-
         // Older browsers may not have srcObject
         if ('srcObject' in video) {
           video.srcObject = stream;
@@ -63,7 +58,6 @@ export default class {
     canvas.height = this.height;
     console.log(canvas.width, canvas.height, this.width, this.height);
     canvas.getContext('2d').drawImage(video, 0, 0, this.width, this.height);
-    image.setAttribute('src', canvas.toDataURL('image/png'));
     return canvas.getContext('2d').getImageData(0, 0, canvas.width, canvas.height).data;
   }
 }

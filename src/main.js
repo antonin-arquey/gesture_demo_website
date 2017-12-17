@@ -6,10 +6,19 @@ import convnetjs from '../convnet-min';
 import model from './json/model.json';
 
 
+import ProbabilityChart from './components/ProbabilityChart.vue';
+
+new Vue({ // eslint-disable-line no-new
+  el: '#app',
+  template: '<ProbabilityChart></ProbabilityChart>',
+  components: {
+    ProbabilityChart,
+  },
+});
+
 const button = document.querySelector('#snap');
 
 const webcamManager = new WebcamManager(64, 64);
-
 
 button.addEventListener('click', (ev) => {
   const data = webcamManager.takeSnapshot();
@@ -19,12 +28,10 @@ button.addEventListener('click', (ev) => {
     if (i % 256 === 0) {
       arr.push([]);
       x += 1;
-      console.log(x);
     }
     arr[x].push((data[i] + data[i + 1] + data[i + 2]) / 3);
   }
   arr = arr.slice(1);
-  console.log(arr);
   const v = new convnetjs.Vol(arr);
   const net = new convnetjs.Net(); // create an empty network
   net.fromJSON(model);

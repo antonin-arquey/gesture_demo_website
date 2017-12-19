@@ -53,10 +53,8 @@ export default class {
 
 
   takeSnapshot() {
-    console.log(this);
     canvas.width = this.width;
     canvas.height = this.height;
-    console.log(canvas.width, canvas.height, this.width, this.height);
     canvas.getContext('2d').drawImage(video, 0, 0, this.width, this.height);
     return canvas.getContext('2d').getImageData(0, 0, canvas.width, canvas.height).data;
   }

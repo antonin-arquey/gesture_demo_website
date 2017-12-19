@@ -12,7 +12,7 @@ def new_weights_conv(name,shape):
 def new_weights_fc(name,shape):
     return tf.get_variable(name, shape=shape, dtype=tf.float32,
            initializer=tf.contrib.layers.xavier_initializer())
-       
+
 def new_biases(length):
     return tf.Variable(tf.constant(0.05, shape=[length], dtype=tf.float32), dtype=tf.float32)
 
@@ -45,7 +45,7 @@ def new_conv_layer(name,input,              # The previous layer.
                                padding='SAME')
     layer = tf.nn.relu(layer)
     return layer, weights, biases
-  
+
 def flatten_layer(layer):
     # Get the shape of the input layer.
     layer_shape = layer.get_shape()
@@ -73,8 +73,8 @@ num_filters1 = 32
 num_filters2 = 64
 num_filters3 = 128
 
-n_images = 5
-n_classes = 5
+n_images = 1
+n_classes = 6
 batch_size = 256
 imgSize = 64
 
@@ -149,7 +149,7 @@ correct = tf.equal(tf.argmax(layer_f, 1), tf.argmax(y, 1))
 accuracy = tf.reduce_mean(tf.cast(correct, 'float'))
 
 saver = tf.train.Saver()
-save_dir = 'final_model_5/'
+save_dir = 'final_model/'
 if not os.path.exists(save_dir):
     os.makedirs(save_dir)
 save_path = os.path.join(save_dir, 'best_model')
@@ -195,16 +195,22 @@ def addPool(conv,size):
       "pad": 0
     }
 
+def addwfc(flatten, index):
+    w = []
+    for y in range(len(flatten)):
+        w.append(flatten[y][index])
+    return w
+
 def addw(flatten):
-  w = {}
+  w = []
   for y in range(len(flatten)):
-      w[str(y)] = flatten[y]
+      w.append(flatten[y])
   return w
 
 def addB(biases):
-  b = {}
+  b = []
   for x in range(len(biases)):
-    b[str(x)] = biases[x]
+    b.append(biases[x])
   return b
 
 def addFiltersConv(conv):
@@ -253,13 +259,13 @@ def addFilters(fc):
   return [{
             "sx": 1,
             "sy": 1,
-            "depth": len(fc[0]),
-            "w": addw(fc[x])
-  } for x in range(len(fc))]
+            "depth": len(fc),
+            "w": addwfc(fc, x)
+  } for x in range(len(fc[0]))]
 
 def addfc(fc):
   return {
-          "out_depth": 5,
+          "out_depth": 6,
           "out_sx": 1,
           "out_sy": 1,
           "layer_type": "fc",
@@ -280,7 +286,7 @@ def softmax(n):
   }
 
 layers = []
-layers.append(addinput(5,[64,64]))
+layers.append(addinput(1,[64,64]))
 layers.append(addConv(conv1a,[64,64]))
 layers.append(addRelu(conv1a,[64,64]))
 

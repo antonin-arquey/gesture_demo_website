@@ -2,7 +2,7 @@
   <div class="proba-bar">
     <span class="name">{{name}}</span>
     <div class="progress">
-      <div class="progress-bar" role="progressbar" v-bind:style="'width:'+ probability*100 + '%'"
+      <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" v-bind:style="'width:'+ probability*100 + '%'"
       v-bind:aria-valuenow="probability" aria-valuemin="0" aria-valuemax="1">
         {{ probability }}
       </div>

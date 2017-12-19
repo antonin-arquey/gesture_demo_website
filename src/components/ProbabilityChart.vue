@@ -6,7 +6,7 @@
     v-bind:probability="proba"
     v-bind:name="gestureName[index]"
   />
-  <button v-on:click="updateData()">Update data</button>
+  <button class="btn btn-primary" v-on:click="updateData()">Update data</button>
   <p>{{probabilityVolume[0]}}</p>
 </div>
 </template>
@@ -15,21 +15,27 @@
 
 import Vue from 'vue';
 import ProbabilityBar from './ProbabilityBar.vue';
+import conv from '../js/conv';
 
 export default {
   data() {
     return {
-      gestureName: ['None', 'Fist', 'Stop', 'Catch', 'Thumb Up'],
-      probabilityVolume: [0.55, 0.22, 0.33, 0.99, 0.2],
+      gestureName: ['None', 'Fist', 'Stop', 'Catch', 'Thumb Up', 'Thumb down'],
+      probabilityVolume: [0, 0, 0, 0, 0, 0],
     };
   },
   methods: {
     updateData() {
-      const self = this;
+      const probCalculated = conv();
       this.probabilityVolume.forEach((elm, index) => {
-        Vue.set(self.probabilityVolume, index, Number(Math.random().toFixed(2)));
+        Vue.set(this.probabilityVolume, index, Number(probCalculated[index].toFixed(2)));
       });
     },
+  },
+  created() {
+    /*window.setInterval(() => {
+      // this.updateData();
+    }, 1000);*/
   },
   components: {
     ProbabilityBar,

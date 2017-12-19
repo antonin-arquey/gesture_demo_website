@@ -2,7 +2,7 @@
 build/
 
 #Models convertor
-python_utils/
+python_utils/final_model_5/
 
 # Python cache
 __pycache__/

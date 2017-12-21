@@ -20,7 +20,7 @@ import conv from '../js/conv';
 export default {
   data() {
     return {
-      gestureName: ['None', 'Fist', 'Stop', 'Catch', 'Thumb Up', 'Thumb down'],
+      gestureName: ['None', 'Fist', 'Thumb Up', 'Thumb down', 'Stop', 'Catch'],
       probabilityVolume: [0, 0, 0, 0, 0, 0],
     };
   },
@@ -33,9 +33,8 @@ export default {
     },
   },
   created() {
-    /*window.setInterval(() => {
-      // this.updateData();
-    }, 1000);*/
+    window.setInterval(() => {
+      this.updateData();
   },
   components: {
     ProbabilityBar,

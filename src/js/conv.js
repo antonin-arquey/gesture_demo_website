@@ -22,8 +22,8 @@ export default function conv() {
     }
     arr[x].push(Math.round((data[i] + data[i + 1] + data[i + 2]) / 3));
   }
-  console.log('new value');
-  console.log(arr);
+  //console.log('new value');
+  //console.log(arr);
 
   const v = new convnetjs.Vol(64, 64, 1);
 
@@ -33,8 +33,8 @@ export default function conv() {
     }
   }
 
-  console.log(v);
+  //console.log(v);
   const probabilityVolume = net.forward(v);
-  console.log(probabilityVolume);
+  console.log(Math.max(...probabilityVolume.w));
   return probabilityVolume.w;
 }

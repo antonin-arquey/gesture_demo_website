@@ -74,7 +74,7 @@ num_filters2 = 64
 num_filters3 = 128
 
 n_images = 1
-n_classes = 6
+n_classes = 15
 batch_size = 256
 imgSize = 64
 
@@ -103,31 +103,31 @@ layer_conv1b, weights_conv1b, biases1b = \
     new_conv_layer("conv1b",input=layer_conv1a1,
                    num_input_channels=num_filters1,
                    filter_size=filter_size1,
-                   num_filters=num_filters1,
+                   num_filters=num_filters2,
                    dropout=keep_prob,
                    use_pooling=False)
 
 layer_conv1b1, weights_conv1b1, biases1b1 = \
     new_conv_layer("conv1b1",input=layer_conv1b,
-                   num_input_channels=num_filters1,
+                   num_input_channels=num_filters2,
                    filter_size=filter_size1,
-                   num_filters=num_filters1,
+                   num_filters=num_filters2,
                    dropout=keep_prob,
                    use_pooling=True)
 
 layer_conv1c, weights_conv1c, biases1c = \
     new_conv_layer("conv1c",input=layer_conv1b1,
-                   num_input_channels=num_filters1,
+                   num_input_channels=num_filters2,
                    filter_size=filter_size1,
-                   num_filters=num_filters1,
+                   num_filters=num_filters2,
                    dropout=keep_prob,
                    use_pooling=False)
 
 layer_conv1c1, weights_conv1c1, biases1c1 = \
     new_conv_layer("conv1c1",input=layer_conv1c,
-                   num_input_channels=num_filters1,
+                   num_input_channels=num_filters2,
                    filter_size=filter_size1,
-                   num_filters=num_filters1,
+                   num_filters=num_filters2,
                    dropout=keep_prob,
                    use_pooling=True)
 
@@ -149,7 +149,7 @@ correct = tf.equal(tf.argmax(layer_f, 1), tf.argmax(y, 1))
 accuracy = tf.reduce_mean(tf.cast(correct, 'float'))
 
 saver = tf.train.Saver()
-save_dir = 'final_model/'
+save_dir = 'final_model_0.65/'
 if not os.path.exists(save_dir):
     os.makedirs(save_dir)
 save_path = os.path.join(save_dir, 'best_model')
@@ -263,13 +263,13 @@ def addFilters(fc):
             "w": addwfc(fc, x)
   } for x in range(len(fc[0]))]
 
-def addfc(fc):
+def addfc(fc,n):
   return {
-          "out_depth": 6,
+          "out_depth": n,
           "out_sx": 1,
           "out_sy": 1,
           "layer_type": "fc",
-          "num_inputs": 2048,
+          "num_inputs": len(fc[0]),
           "l1_decay_mul": 0,
           "l2_decay_mul": 1,
           "filters": addFilters(fc[0]),
@@ -308,8 +308,12 @@ layers.append(addConv(conv1c1,[16,16]))
 layers.append(addRelu(conv1c1,[16,16]))
 layers.append(addPool(conv1c1,[8,8]))
 
-layers.append(addfc(fc))
+layers.append(addfc(fc,n_classes))
 layers.append(softmax(n_classes))
+
+input(len(fc[0]))
+
+
 print(layers)
 model_json = {'layers': layers}
 f = open('model.json', 'w')

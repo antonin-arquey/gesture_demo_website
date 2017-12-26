@@ -19,7 +19,6 @@ if (!dev) {
     loader: 'postcss-loader',
   });
 }
-
 const config = {
   entry: ['./src/css/main.scss', './src/main.js'],
   output: {

@@ -1,7 +1,7 @@
 const canvas = document.querySelector('#canvas');
 
 export default class {
-  constructor(width, height) {
+  constructor(width, height, callback) {
     this.width = width;
     this.height = height;
     this.video = document.querySelector('#video');
@@ -44,6 +44,7 @@ export default class {
         }
         this.video.onloadedmetadata = () => {
           this.video.play();
+          callback();
         };
       })
       .catch((err) => {

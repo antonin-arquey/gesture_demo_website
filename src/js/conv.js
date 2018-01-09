@@ -7,10 +7,12 @@ import model from '../json/model.json';
 let webcamManager = null;
 let net = null;
 
-export function init() {
-  webcamManager = new WebcamManager(64, 64);
+export function init(callback) {
   net = new convnetjs.Net(); // create an empty network
   net.fromJSON(model);
+  webcamManager = new WebcamManager(64, 64, () => {
+    callback();
+  });
 }
 
 export function predict() {

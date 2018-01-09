@@ -36,10 +36,11 @@ export default {
     },
   },
   mounted() { // Wait till vue component is mounted
-    init(); // initialization of the predict module
-    window.setInterval(() => {
-      this.update();
-    }, 10);
+    init(() => { // initialization of the predict module
+      window.setInterval(() => { // loop the update function every 10ms
+        this.update();
+      }, 10);
+    });
   },
   components: {
     ProbabilityBar,

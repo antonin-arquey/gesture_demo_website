@@ -1,15 +1,16 @@
 <template lang="html">
-<div class="probaChart">
-  <p>{{gestureNameMax}}</p>
-  <p>{{probabilityMax}}</p>
-  <button class="btn btn-primary" v-on:click="updateData()">Update data</button>
-  <ProbabilityBar
-    v-for="(proba, index) in probabilityVolume"
-    v-bind:key="index"
-    v-bind:probability="proba"
-    v-bind:name="gestureName[index]"
-  />
-  
+<div >
+  <h2>Prédiction du geste</h2>
+  <div class="probaChart d-flex flex-wrap">
+
+    <ProbabilityBar
+      v-for="(proba, index) in probabilityVolume"
+      v-bind:key="index"
+      v-bind:probability="proba"
+      v-bind:name="gestureName[index]"
+    />
+
+  </div>
 </div>
 </template>
 
@@ -17,43 +18,28 @@
 
 import Vue from 'vue';
 import ProbabilityBar from './ProbabilityBar.vue';
-import conv from '../js/conv';
-
-function argmax(arr) {
-  let maxVal = -1;
-  let indexMax = 0;
-  for(let i = 0; i < arr.length; i++){
-    if(arr[i] > maxVal){
-      maxVal = arr[i];
-      indexMax = i;
-    }
-  }
-  return indexMax;
-}
+import { init, predict } from '../js/conv';
 
 export default {
   data() {
     return {
       gestureName: ['None', 'fist', 'thumb up', 'thumb down', 'stop', 'catch', 'swing', 'phone', 'victory', 'C', 'okay', '2 fingers', '2 fingers horiz', 'rock&roll', 'rock&roll horiz'],
       probabilityVolume: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      probabilityMax: 0,
-      gestureNameMax: 'None'
     };
   },
   methods: {
-    updateData() {
-      const probCalculated = conv();
+    update() {
+      const probCalculated = predict();
       this.probabilityVolume.forEach((elm, index) => {
         Vue.set(this.probabilityVolume, index, Number(probCalculated[index].toFixed(2)));
       });
-      this.probabilityMax = Math.max(...probCalculated);
-      this.gestureNameMax = this.gestureName[argmax(probCalculated)];
     },
   },
-  created() {
+  mounted() { // Wait till vue component is mounted
+    init(); // initialization of the predict module
     window.setInterval(() => {
-      this.updateData();
-    }, 1);
+      this.update();
+    }, 10);
   },
   components: {
     ProbabilityBar,
@@ -63,8 +49,6 @@ export default {
 
 <style lang="scss" scoped>
   .probaChart {
-    width: 300px;
-    height: 300px;
     padding: 20px 20px 20px 20px;
   }
 </style>

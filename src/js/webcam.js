@@ -1,10 +1,10 @@
-const video = document.querySelector('video');
 const canvas = document.querySelector('#canvas');
 
 export default class {
   constructor(width, height) {
     this.width = width;
     this.height = height;
+    this.video = document.querySelector('#video');
     // Older browsers might not implement mediaDevices at all, so we set an empty object first
     if (navigator.mediaDevices === undefined) {
       navigator.mediaDevices = {};
@@ -36,14 +36,14 @@ export default class {
     navigator.mediaDevices.getUserMedia(constraints)
       .then((stream) => {
         // Older browsers may not have srcObject
-        if ('srcObject' in video) {
-          video.srcObject = stream;
+        if ('srcObject' in this.video) {
+          this.video.srcObject = stream;
         } else {
           // Avoid using this in new browsers, as it is going away.
-          video.src = window.URL.createObjectURL(stream);
+          this.video.src = window.URL.createObjectURL(stream);
         }
-        video.onloadedmetadata = () => {
-          video.play();
+        this.video.onloadedmetadata = () => {
+          this.video.play();
         };
       })
       .catch((err) => {
@@ -55,7 +55,7 @@ export default class {
   takeSnapshot() {
     canvas.width = this.width;
     canvas.height = this.height;
-    canvas.getContext('2d').drawImage(video, 0, 0, this.width, this.height);
+    canvas.getContext('2d').drawImage(this.video, 0, 0, this.width, this.height);
     return canvas.getContext('2d').getImageData(0, 0, canvas.width, canvas.height).data;
   }
 }

@@ -3,8 +3,8 @@
     <span class="name">{{name}}</span>
     <div class="progress">
       <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" v-bind:style="'width:'+ probability*100 + '%'"
-      v-bind:aria-valuenow="probability" aria-valuemin="0" aria-valuemax="1">
-        {{ probability }}
+      v-bind:aria-valuenow="probability" aria-valuemin="0" aria-valuemax="100">
+        {{ probability * 100 }} % 
       </div>
     </div>
   </div>
@@ -27,6 +27,8 @@ export default {
 
 <style lang="scss" scoped>
   .proba-bar {
-    margin-bottom: 10px;
+    padding-bottom: 20px;
+    width: 200px;
+    padding-right: 20px;
   }
 </style>

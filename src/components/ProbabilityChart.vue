@@ -19,12 +19,13 @@
 import Vue from 'vue';
 import ProbabilityBar from './ProbabilityBar.vue';
 import { init, predict } from '../js/conv';
+import gestures from '../json/gestures.json';
 
 export default {
   data() {
     return {
-      gestureName: ['None', 'fist', 'thumb up', 'thumb down', 'stop', 'catch', 'swing', 'phone', 'victory', 'C', 'okay', '2 fingers', '2 fingers horiz', 'rock&roll', 'rock&roll horiz'],
-      probabilityVolume: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      gestureName: [],
+      probabilityVolume: [],
     };
   },
   methods: {
@@ -35,10 +36,18 @@ export default {
       });
     },
   },
+
+  created() {
+    Object.keys(gestures).forEach((elm) => {
+      this.gestureName.push(elm);
+      this.probabilityVolume.push(0);
+    });
+  },
+
   mounted() { // Wait till vue component is mounted
     init(() => { // initialization of the predict module
       window.setInterval(() => { // loop the update function every 10ms
-        this.update();
+        //this.update();
       }, 10);
     });
   },

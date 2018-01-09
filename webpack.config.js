@@ -84,7 +84,7 @@ const config = {
             loader: 'url-loader',
             options: {
               limit: 8192,
-              name: '[name].[hash.7].[ext]',
+              name: '[name].[ext]',
             },
           },
           {

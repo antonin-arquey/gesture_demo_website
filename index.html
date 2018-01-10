@@ -4,11 +4,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Gesture Recognition Demo</title>
+    <link rel="stylesheet" href="assets/TemplateData/style.css">
+    <script src="/assets/static/TemplateData/UnityProgress.js"></script>
+    <script src="/assets/static/Build/UnityLoader.js"></script>
+    <script>
+      const gameInstance = UnityLoader.instantiate('gameContainer', '/assets/static/Build/WebGL.json', {onProgress: UnityProgress});
+    </script>
   </head>
   <body>
     <canvas id="canvas"></canvas>
     <div id="app">
-
     </div>
   </body>
 </html>

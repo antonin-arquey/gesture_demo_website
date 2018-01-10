@@ -1,0 +1,19 @@
+<template lang="html">
+  <div class="webgl-content">
+    <div id="gameContainer" style="width: 960px; height: 600px"></div>
+      <div class="footer">
+        <div class="webgl-logo"></div>
+        <div class="fullscreen" onclick="gameInstance.SetFullscreen(1)"></div>
+        <div class="title">RollerMadness</div>
+      </div>
+  </div>
+</template>
+
+<script>
+export default {
+
+};
+</script>
+
+<style lang="scss" scoped>
+</style>

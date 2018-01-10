@@ -7,6 +7,7 @@ const ManifestPlugin = require('webpack-manifest-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const dev = process.env.NODE_ENV === 'dev';
 
@@ -103,6 +104,7 @@ const config = {
       verbose: true,
       dry: false,
     }),
+    new CopyWebpackPlugin([{ from: './static/', to: './static/' }]),
     new ExtractTextPlugin({
       filename: dev ? '[name].css' : '[name].[contentHash:7].css',
       disable: dev,

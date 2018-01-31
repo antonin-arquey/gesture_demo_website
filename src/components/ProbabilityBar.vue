@@ -27,8 +27,16 @@ export default {
 
 <style lang="scss" scoped>
   .proba-bar {
+    margin: 5px;
     padding-bottom: 20px;
     width: 200px;
     padding-right: 20px;
+    border-radius: 10px;
+  }
+  .name {
+    margin: 10px;
+  }
+  .progress {
+    margin-left: 15px;
   }
 </style>

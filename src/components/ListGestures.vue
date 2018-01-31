@@ -1,8 +1,8 @@
 <template lang="html">
   <div class="main">
-    <h2>Liste des gestes reconnus</h2>
+    <h2>List of recognize gestures</h2>
     <div class="row">
-      <div class="col-md-2 gesture-picture"
+      <div class="col-md-2 col-sm-6 gesture-picture"
         v-for="(name, index) in Object.keys(gesturesName)"
         v-bind:key="index" v-if="name !== ''">
 
@@ -34,6 +34,9 @@ export default {
 <style lang="scss" scoped>
   .main{
     margin-top: 30px;
+    background-color: rgb(170, 194, 216);
+    padding: 2%;
+    border-radius: 25px;
   }
   .row {
     margin-top: 30px;
@@ -52,4 +55,5 @@ export default {
     font-size: 18px;
     font-weight: bold;
   }
+  
 </style>
